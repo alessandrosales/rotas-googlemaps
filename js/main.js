@@ -22,7 +22,7 @@ function route1(){
     ]
   }
 
-  loadRoute(routesRequest, "#426d24");
+  loadRoute(routesRequest, {colorRoute: "#426d24"});
 }
 
 function route2(){
@@ -40,7 +40,7 @@ function route2(){
     ]
   }
 
-  loadRoute(routesRequest, "#dd2f00");
+  loadRoute(routesRequest, {colorRoute: "#dd2f00"});
 
 }
 
@@ -59,21 +59,32 @@ function route3(){
     ]
   }
 
-  loadRoute(routesRequest, "#4657fa");
+  loadRoute(routesRequest, {colorRoute: "#333333"});
 
 }
 
-function loadRoute(routesRequestObject, colorRoute){
+function loadRoute(routesRequestObject, options){
+
+  var colorRoute = null;
+  var strokeOpacity = 0.8;
+  var strokeWeight = 7;
+
+  if(options != undefined){
+    var colorRoute = (options.colorRoute != undefined ? options.colorRoute : colorRoute);
+    var strokeOpacity = (options.strokeOpacity != undefined ? options.strokeOpacity : strokeOpacity);
+    var strokeWeight = (options.strokeWeight != undefined ? options.strokeWeight : strokeWeight);
+  }
 
   var directionsService = new google.maps.DirectionsService();
   var directionsDisplay = new google.maps.DirectionsRenderer({
     suppressMarkers: true
     , polylineOptions: { 
       strokeColor: colorRoute
-      , strokeOpacity: 0.8
-      , strokeWeight: 7 
+      , strokeOpacity: strokeOpacity
+      , strokeWeight: strokeWeight 
     }
   });
+  
   var map = getMap();
 
   directionsDisplay.setMap(map);
